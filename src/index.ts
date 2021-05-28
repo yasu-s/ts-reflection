@@ -39,7 +39,18 @@ function run4(): void {
   console.log('run4: ' + obj.getMemo());
 }
 
+/**
+ * dynamic import パターン
+ */
+function run5(): void {
+  import('./TestClass2').then((module) => {
+    const obj = new module.TestClass2('hoge');
+    console.log('run5: ' + obj.getMemo());
+  });
+}
+
 run1();
 run2();
 run3();
 run4();
+run5();
