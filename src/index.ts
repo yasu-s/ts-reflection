@@ -17,5 +17,29 @@ function run2(): void {
   console.log('run2: ' + obj.getMemo());
 }
 
+/**
+ * typeof 使用パターン
+ */
+function run3(): void {
+  const clazz = TestClass;
+  const obj = new clazz('hogee');
+  console.log('run3: ' + obj.getMemo());
+}
+
+interface TestClassConstructor {
+  new (param: string): TestClass;
+}
+
+/**
+ * TestClassConstructorキャストパターン
+ */
+function run4(): void {
+  const clazz = TestClass as TestClassConstructor;
+  const obj = new clazz('hogeee');
+  console.log('run4: ' + obj.getMemo());
+}
+
 run1();
 run2();
+run3();
+run4();
