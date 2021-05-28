@@ -49,8 +49,25 @@ function run5(): void {
   });
 }
 
+/**
+ * dynamic import パターン
+ * moduleName動的
+ */
+function run6(): void {
+  const moduleName = './TestClass2';
+  import(moduleName).then((module) => {
+    for (const clazz of Object.values(module)) {
+      if (!(clazz instanceof Function)) continue;
+      const obj = Object.create(clazz.prototype);
+      obj.constructor.apply(obj, ['hogeeeee']);
+      console.log('run6: ' + obj.getMemo());
+    }
+  });
+}
+
 run1();
 run2();
 run3();
 run4();
 run5();
+run6();
