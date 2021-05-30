@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as path from 'path';
 import { TestClass } from './TestClass';
 
 /**
@@ -77,10 +79,35 @@ function run7(): void {
       const decorator = Reflect.getMetadata('SampleClassDecorator', clazz) as string;
       if (!decorator) continue;
       const obj = Object.create(clazz.prototype);
-      obj.constructor.apply(obj, ['hogeeeee']);
-      console.log('run6: ' + obj.getMemo());
+      obj.constructor.apply(obj, ['hogeeeeee']);
+      console.log('run7: ' + obj.getMemo());
     }
   });
+}
+
+/**
+ * dynamic import パターン
+ * moduleName動的、Decoratorチェック
+ */
+function run8(): void {
+  const dir = path.dirname(process.argv[1]);
+  const filePaths = fs
+    .readdirSync(dir)
+    .filter((p) => p.endsWith('.js'))
+    .map((p) => './' + p);
+
+  for (const filePath of filePaths) {
+    import(filePath).then((module) => {
+      for (const clazz of Object.values(module)) {
+        if (!(clazz instanceof Function)) continue;
+        const decorator = Reflect.getMetadata('SampleClassDecorator', clazz) as string;
+        if (!decorator) continue;
+        const obj = Object.create(clazz.prototype);
+        obj.constructor.apply(obj, ['hogeeeeeeeee']);
+        console.log('run8: ' + obj.getMemo());
+      }
+    });
+  }
 }
 
 run1();
@@ -90,3 +117,4 @@ run4();
 run5();
 run6();
 run7();
+run8();
