@@ -1,6 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { TestClass } from './TestClass';
+import { TestClass3, BaseClass } from './TestClass3';
 
 /**
  * Object.create使用パターン
@@ -110,6 +111,11 @@ function run8(): void {
   }
 }
 
+function run9(): void {
+  const clazz = TestClass3;
+  console.log(clazz.prototype instanceof BaseClass);
+}
+
 run1();
 run2();
 run3();
@@ -118,3 +124,4 @@ run5();
 run6();
 run7();
 run8();
+run9();
